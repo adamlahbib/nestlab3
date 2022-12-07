@@ -14,10 +14,10 @@ export class Cv {
     firstname: string;
 
     @Column()
-    age: string;
+    age: number;
 
     @Column()
-    cin: string;
+    cin: number;
 
     @Column()
     occupation: string;
