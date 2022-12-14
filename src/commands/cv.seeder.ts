@@ -1,11 +1,11 @@
 import { NestFactory } from "@nestjs/core";
-import { AppModule } from "src/app.module";
-import { Cv } from "src/cv/entities/cv.entity";
-import { User } from "src/user/entities/user.entity";
-import { Skill } from "src/skill/entities/skill.entity";
-import { CvService } from "src/cv/cv.service";
-import { UserService } from "src/user/user.service";
-import { SkillService } from "src/skill/skill.service";
+import { AppModule } from "../app.module";
+import { Cv } from "../cv/entities/cv.entity";
+import { User } from "../user/entities/user.entity";
+import { Skill } from "../skill/entities/skill.entity";
+import { CvService } from "../cv/cv.service";
+import { UserService } from "../user/user.service";
+import { SkillService } from "../skill/skill.service";
 import { randFirstName, randLastName, randUserName, randEmail, randPassword, randJobTitle, randNumber, randFilePath, randSkill } from "@ngneat/falso"
 
 async function bootstrap() {
@@ -21,6 +21,7 @@ async function bootstrap() {
         user.username = randUserName();
         user.email = randEmail();
         user.password = randPassword();
+        user.id = i;
         await userService.create(user);
     }
 
@@ -34,7 +35,7 @@ async function bootstrap() {
 
     const users = await userService.findAll();
     const skills = await skillService.findAll();
-    
+
     for (let i = 0; i < 100; i++) {
         const cv = new Cv();
         cv.name = randLastName();
@@ -44,14 +45,20 @@ async function bootstrap() {
         cv.occupation = randJobTitle();
         cv.path = randFilePath();
         // use a random user
-        cv.user.id = Number(users[Math.floor(Math.random() * users.length)]);
+        cv.user = users[Math.floor(Math.random() * users.length)];
         // use 5 random skills
+        // make a new array of skills for cv.skill
+        const sk = [];
         for (let j = 0; j < 5; j++) {
-            cv.skills.push(skills[Math.floor(Math.random() * skills.length)]);
+            sk.push(skills[Math.floor(Math.random() * skills.length)]);
         }
+        cv.skills=sk;
 
+        console.log(cv);
+        
         await cvService.create(cv);
+
     }
-
-
 }
+
+bootstrap();

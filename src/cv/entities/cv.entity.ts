@@ -1,6 +1,6 @@
-import { Column, Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Skill } from "src/skill/entities/skill.entity";
-import { User } from "src/user/entities/user.entity";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Skill } from "./../../skill/entities/skill.entity";
+import { User } from "./../../user/entities/user.entity";
 
 @Entity('cv')
 export class Cv {
@@ -26,11 +26,11 @@ export class Cv {
     path: string;
 
     @JoinTable()
-    @ManyToOne(() => User, user => user.cvs, { eager: true, cascade: true })
+    @OneToMany(() => User, user => user.cvs, { cascade: true })
     user: User;
 
     @JoinTable()
-    @ManyToOne(() => Skill, skill => skill.cvs, { eager: true, cascade: true })
+    @ManyToMany(() => Skill, skill => skill.cvs, { cascade: true })
     skills: Skill[];
 
 }
