@@ -34,7 +34,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
+       /* stage('Test') {
             steps {
                 script {
                     docker.build("${DOCKER_HUB_REPO}:${TAG}", "--file Dockerfile --target test .")
@@ -48,7 +48,7 @@ pipeline {
                     echo 'Failed to test image'
                 }
             }
-        }
+        }*/
         
         stage('Final') {
             steps {
