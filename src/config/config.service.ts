@@ -8,11 +8,11 @@ class ConfigService {
     public getTypeOrmConfig(): TypeOrmModuleOptions {
         return {
         type: 'postgres',
-        host: this.env.POSTGRES_HOST,
-        port: parseInt(this.env.POSTGRES_PORT, 10),
-        username: this.env.POSTGRES_USER,
-        password: this.env.POSTGRES_PASSWORD,
-        database: this.env.POSTGRES_DB,
+        host: 'ella.db.elephantsql.com',
+        port: 5432,
+        username: 'rznxxxik',
+        password: 'KglnrpHzwmCZu0HbYNvSrCM1ERh3OWs0',
+        database: 'rznxxxik',
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
         synchronize: true,
         };
